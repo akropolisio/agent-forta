@@ -9,6 +9,12 @@ def handle_transaction(transaction_event: forta_agent.transaction_event):
 
     events  = transaction_event.filter_log(MULTI_SIG_ABI, MULTI_SIG_MAINNET_ADDRESS)
 
+    for event in events:
+        msg_hash = event.get('args', {}).get('approvedHash', None)
+        msg_hash = msg_hash if msg_hash else 'UNKNOW_HASH'
+        executor = event.get('args', {}).get('owner', None)
+        executor = executor if executor else "UNKNOW_EXECUTOR"
+
     findings.append(
         Finding({
             "name": "multisig event tracker",
@@ -16,7 +22,8 @@ def handle_transaction(transaction_event: forta_agent.transaction_event):
             "type": FindingType.Info,
             "severity": FindingSeverity.Info,
             "metadata": {
-                #determine
+                'hash': msg_hash,
+                'executor': executor
             }
         })
     )

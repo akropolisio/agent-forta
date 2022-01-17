@@ -6,10 +6,16 @@ MULTI_SIG_ABI = """
         {
             "indexed":true,
             "internalType":"bytes32",
-            "name":"msgHash",
+            "name":"approvedHash",
             "type":"bytes32"
+        },
+        {
+            "indexed":true,
+            "internalType":"address",
+            "name":"owner",
+            "type":"address"
         }
     ],
-    "name":"SignMsg",
+    "name":"ApproveHash",
     "type":"event"
 }"""
