@@ -1,38 +1,22 @@
+import forta_agent
 from forta_agent import Finding, FindingType, FindingSeverity
-from .constants import (
-    MY_ADDRESS
-)
+from src.constants import MULTI_SIG_MAINNET_ADDRESS, MULTI_SIG_ABI
 
-def handle_transaction(transaction_event):
+def handle_transaction(transaction_event: forta_agent.transaction_event):
     findings = []
-    # filter the transaction from the contract
-    multisig_invocations = transaction_event.filter_function(
-        # multi-sig_pausable_abi, and multi-sig-address
+
+    # filter transaction event in the multi sig wallet
+
+    events  = transaction_event.filter_log(MULTI_SIG_ABI, MULTI_SIG_MAINNET_ADDRESS)
+
+    findings.append(
+        Finding({
+            "name": "multisig event tracker",
+            "description": "track executed transaction from multi-sig",
+            "type": FindingType.Info,
+            "severity": FindingSeverity.Info,
+            "metadata": {
+                #determine
+            }
+        })
     )
-
-    # filter transaction info from multi-sig
-    for invocation in multisig_invocations:
-        sender = transaction_event
-
-        findings.append(
-            Finding(
-                {
-                    "name": "MultiSig function listening",
-                    "description": f"Function call by sender",
-                    "type": Finding.suspicious,
-                    "severity": get_severity(sender),
-                    "metadata": {
-                        "from": transaction_event.from_,
-                        "to": transaction_event.to_
-                    }
-                }
-            )
-        )
-    return findings
-
-
-def get_severity(sender):
-    if sender == MY_ADDRESS:
-        return FindingSeverity.Medium
-    else:
-        return FindingSeverity.Critical

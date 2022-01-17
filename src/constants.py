@@ -1,2 +1,15 @@
-AAVE_V2_ADDRESS = "0x7d2768de32b0b80b7a3454c06bdac94a69ddc7a9"
-MY_ADDRESS_LIS = ""
+MULTI_SIG_MAINNET_ADDRESS = "0xC5aF91F7D10dDe118992ecf536Ed227f276EC60D"
+MULTI_SIG_ABI = """
+{
+    "anonymous":false,
+    "inputs":[
+        {
+            "indexed":true,
+            "internalType":"bytes32",
+            "name":"msgHash",
+            "type":"bytes32"
+        }
+    ],
+    "name":"SignMsg",
+    "type":"event"
+}"""
