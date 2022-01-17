@@ -1,3 +1,9 @@
-from forta_agent import FindingSeverity, FindingType, create_transaction_event
-from agent import handle_transaction
+import json
+import eth_abi
+from agent import create_event_transaction
+from src.constants import MULTI_SIG_ABI, MULTI_SIG_MAINNET_ADDRESS
+
+
+class testMultiSigEvent:
+    pass
 
