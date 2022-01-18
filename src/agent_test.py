@@ -10,8 +10,6 @@ from src.constants import MULTI_SIG_ABI, MULTI_SIG_MAINNET_ADDRESS
 class TestMultiSigEvent:
     
     def test_returns_empty_findings_if_address_is_wrong(self):
-        data = eth_abi.encode_abi(["address"], [MULTI_SIG_MAINNET_ADDRESS])
-        topics = [event_abi_to_log_topic(json.loads(MULTI_SIG_ABI)), data]
         tx_event = create_transaction_event({
             #
         })
