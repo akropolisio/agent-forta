@@ -2,7 +2,7 @@
 
 ## Description
 
-This agent detects transactions with high gas consumption
+This agent detects transactions between addresses and multisigwallet
 
 ## Supported Chains
 
