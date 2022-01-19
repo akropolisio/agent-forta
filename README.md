@@ -18,7 +18,9 @@ This agent detects transactions with high gas consumption
 - SeverityType is always set to Info
 
 # Installation
-npx forta-agent@latest init --python
+- npx forta-agent@latest init --python
+
+- npm install
 
 # Set config
 
