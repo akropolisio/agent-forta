@@ -1,21 +1,14 @@
-MULTI_SIG_MAINNET_ADDRESS = "0xAE28420C1adC4a3bba95c1e97a2a85b8E1149114"
-MULTI_SIG_ABI = """
-{
-    "anonymous":false,
-    "inputs":[
-        {
-            "indexed":true,
-            "internalType":"bytes32",
-            "name":"approvedHash",
-            "type":"bytes32"
-        },
-        {
-            "indexed":true,
-            "internalType":"address",
-            "name":"owner",
-            "type":"address"
-        }
-    ],
-    "name":"ApproveHash",
-    "type":"event"
-}"""
+MULTI_SIG_MAINNET_ADDRESS = "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552"
+MULTI_SIG_RINKEBY_ADDRESS = "0xAE28420C1adC4a3bba95c1e97a2a85b8E1149114"
+ADDRESS_LIST_MAINNET = [
+    "0x0499491b005243073C3F0ee8873885cE2a2b22060",
+    "0x5846A9749a3D05D815a9102E7515F6507fB51Ec31",
+    "0x6fd4d91BEE5Db9Bacc88347B6564857200cf82A80",
+    "0x8EEc439eEf5fAA861E1e567fcdee28d69967801e",
+    "0xC21367e98bb94A5FbA946b2af345339Dfb2F024F0",
+    "0xFBODEdA9fcc43F606815F9410CA70C2c86fAC0e8"
+]
+ADDRESS_LIST_RINKEBY = [
+    "0x451237d0e02721dBaB3E7E806d609f550EC1ee77",
+    "0x27a1876A09581E02E583E002E42EC1322abE9655"
+]

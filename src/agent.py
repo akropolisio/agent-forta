@@ -1,29 +1,22 @@
 import forta_agent
 from forta_agent import Finding, FindingType, FindingSeverity
-from src.constants import MULTI_SIG_MAINNET_ADDRESS, MULTI_SIG_ABI
+from src.constants import MULTI_SIG_RINKEBY_ADDRESS, ADDRESS_LIST_RINKEBY
 
 def handle_transaction(transaction_event: forta_agent.transaction_event.TransactionEvent):
     findings = []
-
-    # filter transaction event in the multi sig wallet
-
-    events  = transaction_event.filter_log(MULTI_SIG_ABI, MULTI_SIG_MAINNET_ADDRESS)
-
-    for event in events:
-        approvedHash = event.get('args', {}).get('approvedHash', None)
-        approvedHash = approvedHash if approvedHash else 'UNKNOW_HASH'
-        owner = event.get('args', {}).get('owner', None)
-        owner = owner if owner else "UNKNOW_EXECUTOR"
-
+    if transaction_event.to != MULTI_SIG_RINKEBY_ADDRESS:
+        return findings
+    targeted_address = transaction_event.from_
+    if targeted_address in ADDRESS_LIST_RINKEBY:
         findings.append(
             Finding({
-                "name": "multisig event tracker",
-                "description": "track executed transaction from multi-sig",
-                "type": FindingType.Info,
-                "severity": FindingSeverity.Info,
-                "metadata": {
-                    'approvedHash': approvedHash,
-                    'executor': owner
+                'name': 'multisig tracker',
+                'description': f'track interaction between {targeted_address} with multisig protocol',
+                'type': FindingType.Info,
+                'alert_id': "MultiSig_ALERT",
+                'severity': FindingSeverity.Info,
+                'metadata': {
+                    "address": targeted_address
                 }
             })
         )
