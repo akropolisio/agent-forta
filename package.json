@@ -1,7 +1,9 @@
 {
-  "name": "forta-agent-starter",
+  "name": "gnosis-multisig-forta-agent",
   "version": "0.0.1",
-  "description": "Forta Agent Python starter project",
+  "description": "Python forta-agent that tracks multisig interaction",
+  "author": "joshualyguessennd",
+  "license": "MIT",
   "scripts": {
     "postinstall": "python3 -m pip install -r requirements_dev.txt",
     "start": "npm run start:dev",

@@ -1,42 +1,23 @@
+import forta_agent
 from forta_agent import Finding, FindingType, FindingSeverity
+from src.constants import MULTI_SIG_RINKEBY_ADDRESS, ADDRESS_LIST
 
-MEDIUM_GAS_THRESHOLD = 1000000
-HIGH_GAS_THRESHOLD = 3000000
-CRITICAL_GAS_THRESHOLD = 7000000
-
-findings_count = 0
-
-
-def handle_transaction(transaction_event):
+def handle_transaction(transaction_event: forta_agent.transaction_event.TransactionEvent):
     findings = []
-    gas_used = int(transaction_event.gas_used)
-
-    # limiting this agent to emit only 5 findings so that the alert feed is not spammed
-    global findings_count
-    if findings_count >= 5:
+    if transaction_event.to != MULTI_SIG_RINKEBY_ADDRESS:
         return findings
-
-    if gas_used < MEDIUM_GAS_THRESHOLD:
-        return findings
-
-    findings.append(Finding({
-        'name': 'High Gas Used',
-        'description': f'Gas Used: {gas_used}',
-        'alert_id': 'FORTA-1',
-        'type': FindingType.Suspicious,
-        'severity': get_severity(gas_used),
-        'metadata': {
-            'gas_used': gas_used
-        }
-    }))
-    findings_count += 1
+    targeted_address = transaction_event.from_
+    if targeted_address in ADDRESS_LIST:
+        findings.append(
+            Finding({
+                'name': 'multisig tracker',
+                'description': f'track interaction between {targeted_address} with multisig protocol',
+                'type': FindingType.Info,
+                'alert_id': "MultiSig_ALERT",
+                'severity': FindingSeverity.Info,
+                'metadata': {
+                    "address": targeted_address
+                }
+            })
+        )
     return findings
-
-
-def get_severity(gas_used):
-    if gas_used > CRITICAL_GAS_THRESHOLD:
-        return FindingSeverity.Critical
-    elif gas_used > HIGH_GAS_THRESHOLD:
-        return FindingSeverity.High
-    else:
-        return FindingSeverity.Medium
