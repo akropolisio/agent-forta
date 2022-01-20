@@ -1,10 +1,10 @@
 import forta_agent
 from forta_agent import Finding, FindingType, FindingSeverity
-from src.constants import MULTI_SIG_RINKEBY_ADDRESS, ADDRESS_LIST
+from src.constants import MULTI_SIG_MAINNET_ADDRESS, ADDRESS_LIST
 
 def handle_transaction(transaction_event: forta_agent.transaction_event.TransactionEvent):
     findings = []
-    if transaction_event.to != MULTI_SIG_RINKEBY_ADDRESS:
+    if transaction_event.to != MULTI_SIG_MAINNET_ADDRESS:
         return findings
     targeted_address = transaction_event.from_
     if targeted_address in ADDRESS_LIST:
