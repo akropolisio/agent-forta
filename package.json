@@ -18,7 +18,7 @@
     "disable": "forta-agent disable",
     "enable": "forta-agent enable",
     "keyfile": "forta-agent keyfile",
-    "test": "python3 -m pytest"
+    "test": "python3 -m pytest -s -v"
   },
   "dependencies": {
     "forta-agent": "^0.0.34"
